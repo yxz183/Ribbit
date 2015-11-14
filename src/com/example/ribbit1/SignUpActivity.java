@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -24,6 +24,8 @@ public class SignUpActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//must before setContentView
+
 		setContentView(R.layout.activity_sign_up);
 		
 		mUsername = (EditText) findViewById(R.id.usernameField1);
@@ -33,6 +35,8 @@ public class SignUpActivity extends Activity {
 		mSignUpButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+
 				String username = mUsername.getText().toString();
 				String password = mPassword.getText().toString();
 				String email = mEmail.getText().toString();
@@ -51,6 +55,7 @@ public class SignUpActivity extends Activity {
 					
 				}
 				else{
+					setProgressBarIndeterminateVisibility(true);
 					// create the new user
 					ParseUser user = new ParseUser();
 					user.setUsername(username);
@@ -59,6 +64,7 @@ public class SignUpActivity extends Activity {
 
 					user.signUpInBackground(new SignUpCallback() {
 					  public void done(ParseException e) {
+						  setProgressBarIndeterminateVisibility(false);
 						  if(e == null){
 							  //Success!
 							  Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
@@ -80,16 +86,5 @@ public class SignUpActivity extends Activity {
 				}
 			}
 		});
-		
-		
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.sign_up, menu);
-		return true;
-	}
-
-
 }

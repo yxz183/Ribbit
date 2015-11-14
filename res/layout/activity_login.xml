@@ -48,13 +48,4 @@
         android:hint="@string/password_hint"
         android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/EditText01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:ems="10"
-        android:hint="@string/username_hint" />
-
 </RelativeLayout>
